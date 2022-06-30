@@ -5,8 +5,7 @@ require('./db');
 app.post('/signup', (req, res)=>{
     
     if( role === 'admin'){
-        // check if admin exists.
-        // create admin.
+        
     }
     else if( role === 'parent'){
         // check if parent exists
