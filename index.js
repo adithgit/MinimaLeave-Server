@@ -1,11 +1,20 @@
 const express = require('express');
 const app = express();
-require('./db');
+const bodyParser = require('body-parser');
+const db = require('./db');
+
+app.use(bodyParser.urlencoded({extended:true}));
+
+app.get('/login', (req, res)=>{
+    res.send({loginPage:'true'});
+    res.end();
+})
 
 app.post('/signup', (req, res)=>{
-    
+    const {role, name, department, semester, admno, mobile} = req.body;
     if( role === 'admin'){
         
+        db.createAdmin(name, mobile, department);
     }
     else if( role === 'parent'){
         // check if parent exists
@@ -13,9 +22,10 @@ app.post('/signup', (req, res)=>{
         // create parent
     }
     else if( role === 'student'){
-        // check if they already exists
-        // create student
+        db.createStudent(name, semester, department, admno, mobile)
     }
+    res.setHeader('status', 200);
+    res.end();
 })
 
 app.post('/login',(req,res)=>{
