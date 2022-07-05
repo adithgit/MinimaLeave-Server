@@ -77,18 +77,52 @@ const createParent = (name , admnoChild, mobile)=>{
 }
 
 const getParent = ( mobile )=>{
+    return new Promise((resolve, reject)=>{
+        parentModel.findOne({ mobile : mobile}).then((result)=>{
+            if(result){
+                resolve(true);
+            }
+            resolve(false)
+        }).catch((err)=>{
+            console.log("Could'nt fetch parent");
+            console.log(err);
+        });
+    });
 }
 
-const getAdmin = ()=>{
-
+const getAdmin = (mobile)=>{
+    return new Promise((resolve, reject)=>{
+        adminModel.findOne({ mobile : mobile}).then((result)=>{
+            if(result){
+                resolve(true);
+            }
+            resolve(false)
+        }).catch((err)=>{
+            console.log("Could'nt fetch admin\n");
+            console.log(err);
+        });
+    });
 }
 
-const getStudent = ()=>{
-
+const getStudent = (admno)=>{
+    return new Promise((resolve, reject)=>{
+        adminModel.findOne({ admno: admno}).then((result)=>{
+            if(result){
+                resolve(true);
+            }
+            resolve(false);
+        }).catch((err)=>{
+            console.log("Could'nt fetch student\n");
+            console.log(err);
+        });
+    });
 }
 
 module.exports ={
     createStudent,
     createAdmin,
-    createParent
+    createParent,
+    getAdmin,
+    getParent,
+    getStudent
 }
