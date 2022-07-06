@@ -1,7 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const db = require('./db');
+Student = require("./models/student"),
+Warden = require("./models/parent"),
+Hod = require("./models/hod"),
+Leave = require("./models/leave");
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -13,30 +17,12 @@ app.get('/login', (req, res) => {
 app.post('/signup', (req, res) => {
     const {role} = req.body;
     if (role === 'admin') {
-        const {  name, department, mobile } = req.body;
-        db.getAdmin(mobile).then((result) => {
-            if (!result) {
-                db.createAdmin(name, mobile, department);
-            }
-        })
     }
     else if (role === 'parent') {
-        const {  name, admnoChild, mobile } = req.body;
-        db.getParent(mobile).then((result)=>{
-            // Check if children exists
-            if(!result){
-                // Create parent
-            }
-        })
+
     }
     else if (role === 'student') {
-        const { name, department, semester, admno, mobile } = req.body;
-        // Check if student exists
-        // Create student
-        db.createStudent(name, semester, department, admno, mobile);
     }
-    res.setHeader('status', 200);
-    res.end();
 })
 
 app.post('/login', (req, res) => {
