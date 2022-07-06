@@ -7,12 +7,11 @@ var parentSchema = new mongoose.Schema({
   type: String,
   username: String,
   password: String,
-  hostel: String,
   image: String
 });
 
 parentSchema.plugin(passportLocalMongoose);
-var Warden = (module.exports = mongoose.model("Parent", parentSchema));
+var Parent = (module.exports = mongoose.model("Parent", parentSchema));
 
 module.exports.createParent = function(newParent, callback) {
   bcrypt.genSalt(10, function(err, salt) {
