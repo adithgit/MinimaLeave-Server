@@ -1,6 +1,9 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
-var passportLocalMongoose = require("passport-local-mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/leave",(err)=>{
+  if(!err) console.log("mongoose connected");
+})
 
 var hodSchema = new mongoose.Schema({
   name: String,
@@ -17,7 +20,7 @@ var hodSchema = new mongoose.Schema({
   ]
 });
 
-hodSchema.plugin(passportLocalMongoose);
+
 var Hod = (module.exports = mongoose.model("Hod", hodSchema));
 
 module.exports.createHod = function(newHod, callback) {

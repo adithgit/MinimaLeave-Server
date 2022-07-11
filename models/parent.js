@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
-var passportLocalMongoose = require("passport-local-mongoose");
 
 var parentSchema = new mongoose.Schema({
   name: String,
@@ -10,7 +9,7 @@ var parentSchema = new mongoose.Schema({
   image: String
 });
 
-parentSchema.plugin(passportLocalMongoose);
+
 var Parent = (module.exports = mongoose.model("Parent", parentSchema));
 
 module.exports.createParent = function(newParent, callback) {

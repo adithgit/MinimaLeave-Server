@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
-var passportLocalMongoose = require("passport-local-mongoose");
 
 var studentSchema = new mongoose.Schema({
   name: String,
@@ -8,7 +7,7 @@ var studentSchema = new mongoose.Schema({
   username: String,
   password: String,
   department: String,
-  hostel: String,
+  semester:Number,
   image: String,
   leaves: [
     {
@@ -17,7 +16,7 @@ var studentSchema = new mongoose.Schema({
     }
   ]
 });
-studentSchema.plugin(passportLocalMongoose);
+
 var Student = (module.exports = mongoose.model("Student", studentSchema));
 
 module.exports.createStudent = function(newStudent, callback) {
