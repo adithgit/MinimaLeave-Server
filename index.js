@@ -18,18 +18,54 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    const { role } = req.body;
+    const { role, username, password } = req.body;
     if (role === "hod") {
-        console.log("HOD request");
-        // Authenticate HOD
+        hodManage.getUserByUsername(username, (err, user) => {
+            if(!user || err){
+                res.status(401);
+                return res.end();
+            }
+            hodManage.comparePassword(password, user.password, (err, passwordFound)=>{
+                if(!passwordFound){
+                    res.status(401);
+                    return res.end();
+                }
+                res.status(200);
+                res.send({authenticated:true});
+            })
+        });
     }
     else if (role === "parent") {
-        console.log("Parent request");
-        // Authenticate Parent
+        parentManage.getUserByUsername(username, (err, user) => {
+            if(!user || err){
+                res.status(401);
+                return res.end();
+            }
+            parentManage.comparePassword(password, user.password, (err, passwordFound)=>{
+                if(!passwordFound){
+                    res.status(401);
+                    return res.end();
+                }
+                res.status(200);
+                res.send({authenticated:true});
+            })
+        });
     }
     else if (role === "student") {
-        console.log("Student request");
-        // Authenticate student
+        studentManage.getUserByUsername(username, (err, user) => {
+            if(!user || err){
+                res.status(401);
+                return res.end();
+            }
+            studentManage.comparePassword(password, user.password, (err, passwordFound)=>{
+                if(!passwordFound){
+                    res.status(401);
+                    return res.end();
+                }
+                res.status(200);
+                res.send({authenticated:true});
+            })
+        });
     }
     else {
         res.status(404);
