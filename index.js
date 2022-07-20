@@ -2,10 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const auth = require('./auth');
-const hodManage = require('./models/hod');
-const parentManage = require('./models/parent');
+const apply = require("./apply")
 var session = require('express-session');
-const studentManage = require('./models/student');
 Student = require("./models/student"),
     Parent = require("./models/parent"),
     Hod = require("./models/hod"),
@@ -22,16 +20,12 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', auth);
+app.use('/', apply);
 
 app.get('/', (req, res) => {
     res.send({ homePage: true })
 })
 
-
-app.get('/apply', (req, res) => {
-    // check if student is logged in
-    // logic for granting leave
-})
 
 app.get('/grant', (req, res) => {
     if (user === 'admin') {
