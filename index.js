@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const auth = require('./auth');
-const apply = require("./apply")
+const apply = require("./apply");
+const grant = require('./grant');
 var session = require('express-session');
 Student = require("./models/student"),
     Parent = require("./models/parent"),
@@ -21,6 +22,7 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', auth);
 app.use('/', apply);
+app.use('/',grant);
 
 app.get('/', (req, res) => {
     res.send({ homePage: true })

@@ -11,6 +11,7 @@ Student = require("./models/student"),
 
 router.get('/apply', (req, res) => {
     if (!req.session.user) return res.json({ authenticated: false }).end();
+    if (req.session.role != 'student') return res.json({ invalidUserType: true }).end();
     const studentId = req.session.user._id;
     const { subject, from, to, days } = req.body;
     studentManage.findById(studentId, (err, student)=>{

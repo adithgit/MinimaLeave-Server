@@ -23,6 +23,7 @@ router.post('/login', (req, res) => {
                     return res.end();
                 }
                 req.session.user = user;
+                req.session.role = 'hod';
                 res.status(200);
                 res.send({ authenticated: true });
             })
@@ -39,7 +40,8 @@ router.post('/login', (req, res) => {
                     res.status(401);
                     return res.end();
                 }
-                req.session.user = user;                
+                req.session.user = user; 
+                req.session.role = 'parent';               
                 res.status(200);
                 res.send({ authenticated: true });
             })
@@ -57,6 +59,7 @@ router.post('/login', (req, res) => {
                     return res.end();
                 }
                 req.session.user = user;
+                req.session.role = 'student';
                 res.status(200);
                 res.send({ authenticated: true });
             })
