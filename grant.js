@@ -27,8 +27,13 @@ const approveHod = (leaveId)=>{
  })
 }
 
-const approveParent = (parent)=>{
-
+const approveParent = (leaveId)=>{
+    leave.updateOne({_id:leaveId},{$set:{parentStatus:'approved'}}).then((err, res)=>{
+        if(err){
+            return false;
+        }
+        return true;
+     })
 }
 
 module.exports = router;
