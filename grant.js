@@ -19,19 +19,35 @@ router.get('/grant', (req, res) => {
 })
 
 const approveHod = (leaveId)=>{
- leave.updateOne({_id:leaveId},{$set:{hodStatus:'approved'}}).then((err, res)=>{
+ leave.updateOne({_id:leaveId},{$set:{hodstatus:'approved'}}).then((err, res)=>{
     if(err){
         return false;
     }
+    leave.findOne({_id:leaveId}).then((err, res)=>{
+        if(res.parentstatus === 'approved'){
+            leave.updateOne({_id:leaveId},{$set:{finalstatus:'approved'}});   
+        }
+        else if( res.parentstatus === 'declined'){
+            leave.updateOne({_id:leaveId},{$set:{finalstatus:'denied'}});
+        }
+    })
     return true;
  })
 }
 
 const approveParent = (leaveId)=>{
-    leave.updateOne({_id:leaveId},{$set:{parentStatus:'approved'}}).then((err, res)=>{
+    leave.updateOne({_id:leaveId},{$set:{parentstatus:'approved'}}).then((err, res)=>{
         if(err){
             return false;
         }
+        leave.findOne({_id:leaveId}).then((err, res)=>{
+            if(res.hodstatus === 'approved'){
+                leave.updateOne({_id:leaveId},{$set:{finalstatus:'approved'}});  
+            }
+            else if( res.hodstatus === 'declined'){
+                leave.updateOne({_id:leaveId},{$set:{finalstatus:'denied'}});
+            }
+        })
         return true;
      })
 }

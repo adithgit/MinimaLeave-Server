@@ -5,7 +5,7 @@ var leaveSchema = new mongoose.Schema(
     from: Date,
     to: Date,
     days: Number,
-    hodStatus: {
+    hodstatus: {
       type: String,
       enum: ["pending", "approved", "denied"],
       default: "pending"
