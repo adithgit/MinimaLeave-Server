@@ -29,17 +29,6 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/grant', (req, res) => {
-    if (user === 'admin') {
-        // check if logged in
-        // check if parent granted permission 
-        // grant or decline permission
-    }
-    if (user === 'parent') {
-        // check if logged in 
-        // grant permission -> have to wait for admin to authorize
-    }
-})
 
 app.listen(8080, () => {
     console.log('listening to port 8080');
