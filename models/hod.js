@@ -1,10 +1,6 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
 
-mongoose.connect("mongodb://127.0.0.1:27017/leave",(err)=>{
-  if(!err) console.log("mongoose connected");
-}); 
-
 var hodSchema = new mongoose.Schema({
   name: String,
   type: String,
