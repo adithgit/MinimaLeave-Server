@@ -11,13 +11,7 @@ var hodSchema = new mongoose.Schema({
   username: String,
   password: String,
   department: String,
-  image: String,
-  leaves: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Leave"
-    }
-  ]
+  image: String
 });
 
 

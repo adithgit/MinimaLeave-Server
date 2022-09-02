@@ -1,9 +1,9 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
+var Parent = require('./parent');
 
 var studentSchema = new mongoose.Schema({
   name: String,
-  type: String,
   username: String,
   password: String,
   department: String,
@@ -14,7 +14,11 @@ var studentSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Leave"
     }
-  ]
+  ],
+  guardian:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Parent
+  }
 });
 
 var Student = (module.exports = mongoose.model("Student", studentSchema));
@@ -43,3 +47,10 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
     callback(null, passwordFound);
   });
 };
+
+module.exports.getLeaves = function(studentId, callback){
+  Student.findOne({_id: studentId}, (err, res)=>{
+    if(err) throw err;
+    console.log(res);
+  })
+}
