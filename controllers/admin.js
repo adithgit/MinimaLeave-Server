@@ -1,15 +1,7 @@
 const express = require("express");
-const router = express.router;
 const adminServices = require("../services/admin");
 
 // Private Routes
-
-// router.post('/add/hod', adminControl.createHod);
-// router.post('/add/student', adminControl.createStudent);
-// router.post('/add/parent', adminControl.addParent);
-// router.post('/remove/hod', adminControl.removeHod);
-// router.post('/remove/student', adminControl.removeStudent);
-// router.post('/remove/parent', adminControl.removeParent);
 
 
 exports.register = async (req, res)=>{
@@ -29,10 +21,75 @@ exports.register = async (req, res)=>{
 exports.login = async (req, res)=>{
     try{
         const result = await adminServices.loginAdmin(req.body);
+        req.session.user = {
+            id: result.username,
+            type:'admin',
+        }
         res.status(200).send({message: 'admin logged in', data: result});
     }
     catch(e){
         res.status(500).send({message: 'login error', data: e});
+    }
+}
+
+exports.addHod = async (req, res)=>{
+    try{
+        const result = await adminServices.addHod(req.body);
+        res.status(200).send({message: 'Hod added', data: result});
+    }
+    catch(e){
+        res.status(500).send({message: 'creation error', data: e});
+    }
+}
+
+exports.addParent = async (req, res)=>{
+    try{
+        if(!req.body.studentID) throw new Error('Student Id not defined.')
+        const result = await adminServices.addParent(req.body);
+        res.status(200).send({message: 'parent added', data: result});
+    }
+    catch(e){
+        res.status(500).send({message: 'creation error', data: e});
+    }
+}
+
+exports.addStudent = async (req, res)=>{
+    try{
+        const result = await adminServices.addStudent(req.body);
+        res.status(200).send({message: 'student added', data: result});
+    }
+    catch(e){
+        res.status(500).send({message: 'creation error', data: e});
+    }
+}
+
+exports.removeHod = async (req, res)=>{
+    try{
+        const result = await adminServices.removeHod(req.body);
+        res.status(200).send({message: 'hod removed', data: result});
+    }
+    catch(e){
+        res.status(500).send({message: 'removal error', data: e});
+    }
+}
+
+exports.removeParent = async (req, res)=>{
+    try{
+        const result = await adminServices.removeParent(req.body);
+        res.status(200).send({message: 'parent removed', data: result});
+    }
+    catch(e){
+        res.status(500).send({message: 'removal error', data: e});
+    }
+}
+
+exports.removeStudent = async (req, res)=>{
+    try{
+        const result = await adminServices.removeStudent(req.body);
+        res.status(200).send({message: 'student removed', data: result});
+    }
+    catch(e){
+        res.status(500).send({message: 'removal error', data: e});
     }
 }
 

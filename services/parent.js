@@ -1,5 +1,18 @@
 const Student = require('../models/student');
 const Leave = require('../models/leave');
+const Parent = require('../models/parent');
+
+exports.login = (parentDetails)=>{
+    return new Promise((resolve, reject)=>{
+        Parent.findOne({username: parentDetails.username}, (err, parent)=>{
+            if(err || !parent) return reject(err || 'username not valid');
+            Parent.comparePassword(parentDetails.password, parent.password, (err, valid)=>{
+                if(err || !valid) return reject(err || 'password incorrect');
+                resolve(parent);
+            })
+        })
+    })
+}
 
 exports.getStudents = (parentId)=>{
     return new Promise((resolve, reject)=>{

@@ -1,5 +1,18 @@
 const Student = require('../models/student');
 const Leave = require('../models/leave');
+const Hod = require('../models/hod');
+
+exports.login = (credentials)=>{
+    return new Promise((resolve, reject)=>{
+        Hod.findOne({username: credentials.username}, (err, hod)=>{
+            if(err || !hod) return reject(err || "username not valid")
+            Hod.comparePassword(credentials.password, hod.password, (err, valid)=>{
+                if(err || !valid) return reject(err || "password not valid");
+                resolve(hod);
+            })
+        })
+    })
+}
 
 exports.getStudents = (semester, department) => {
     return new Promise((resolve, reject) => {

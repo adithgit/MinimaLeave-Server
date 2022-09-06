@@ -1,5 +1,18 @@
 const studentServices = require('../services/student');
 
+exports.login = async (req, res)=>{
+    try {
+        const result = await studentServices.login(req.body);
+        req.session.user = {
+            id: result.username,
+            type: 'student'
+        }
+        res.status(200).send({message: 'logged in', data: result}); 
+    } catch (e) {
+        res.status(401).send({message: e});
+    }
+}
+
 exports.apply = (req, res)=>{
     if(!req.params.studentId) return res.status(400).send({message: 'student id  not defined in parameters'});
     try {

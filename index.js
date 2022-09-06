@@ -7,6 +7,7 @@ Leave = require("./models/leave");
 const db = require('./database/db');
 const router = require('./routes/router');
 const bodyParser = require('body-parser');
+const MongoStore = require('connect-mongo');
 
 const app = express();
 db.connect();
@@ -14,18 +15,16 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use(session({
     // Need to set a secret keyword here
-    secret: 'keyboard cat',
+    secret: 'sessionsecret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { maxAge: 1000*60*60*24 },
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://127.0.0.1:27017/leave',
+    })
 }))
 
 app.use('/api', router);
-
-app.get('/', (req, res) => {
-    res.send({ homePage: true });
-})
-
 
 
 app.listen(8080 || process.env.PORT, () => {

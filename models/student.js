@@ -3,34 +3,48 @@ var bcrypt = require("bcryptjs");
 var Parent = require('./parent');
 
 var studentSchema = new mongoose.Schema({
-  name: String,
-  username: String,
-  password: String,
-  department: String,
-  semester:Number,
-  image: String,
+  name: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  department: {
+    type: String,
+    required: true
+  },
+  semester:{
+    type: Number,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
   leaves: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Leave"
     }
-  ],
-  guardian:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Parent
-  }
+  ]
 });
+
+studentSchema.pre("save", async function(next){
+  const student = this;
+  const hash = await bcrypt.hash(student.password, 10);
+  student.password = hash;
+  next();
+})
 
 var Student = (module.exports = mongoose.model("Student", studentSchema));
 
-module.exports.createStudent = function(newStudent, callback) {
-  bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(newStudent.password, salt, function(err, hash) {
-      newStudent.password = hash;
-      newStudent.save(callback);
-    });
-  });
-};
+
 
 module.exports.getUserByUsername = function(username, callback) {
   var query = { username: username };

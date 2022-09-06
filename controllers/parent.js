@@ -1,5 +1,19 @@
 const parentServices = require('../services/parent');
 
+
+exports.login = async (req, res)=>{
+    try {
+        const result = await parentServices.login(req.body);
+        req.session.user = {
+            id: result.username,
+            type: 'parent'
+        }
+        res.status(200).send({message: 'logged in', data: result}); 
+    } catch (e) {
+        res.status(401).send({message: e});
+    }
+}
+
 exports.getStudents = async (req, res)=>{
     if(!req.params.parentId) return res.status(400).send({message: 'parentId not defined in parameters'});
     try {

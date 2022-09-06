@@ -1,5 +1,19 @@
 const hodServices = require('../services/hod');
 
+
+exports.login = async(req, res)=>{
+    try {
+        const result = await hodServices.login(req.body);
+        req.session.user = {
+            id: result.username,
+            type: 'hod'
+        }
+        res.status(200).send({message: "logged in.", data: result}); 
+    } catch (e) {
+        res.status(401).send({message: e});
+    }
+}
+
 exports.getStudents = async(req, res)=>{
     if(!req.params.semester || !req.params.department) return res.status(400).send({message: 'semester or department not defined in parameters'});
     try {

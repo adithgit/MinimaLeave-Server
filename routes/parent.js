@@ -1,8 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const parentControl = require('../controllers/parent');
+const authenticate = require('../middleware/authenticate');
+
+// Public Route
+router.post('/login', parentControl.login);
+
 
 // Authentication middleware here
+router.use(authenticate.checkParent);
 
 
 // get students under parent's name 
