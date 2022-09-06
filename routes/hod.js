@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const hodControl = require('../controllers/hod');
 
+
+// Authentication middleware here
+
+
+// Private Routes
+
 // get students of a semester
 router.get('/semster/:semester/:department', hodControl.getStudents);
 // get student leave history

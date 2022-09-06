@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const studentControl = require('../controllers/student');
 
+// Authentication middleware here 
+
 // get student leave history
 router.get('/history/:studentId', studentControl.getHistory);
 // apply for leave

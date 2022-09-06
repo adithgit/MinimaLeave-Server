@@ -6,9 +6,11 @@ Hod = require("./models/hod"),
 Leave = require("./models/leave");
 const db = require('./database/db');
 const router = require('./routes/router');
+const bodyParser = require('body-parser');
 
 const app = express();
 db.connect();
+app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use(session({
     // Need to set a secret keyword here

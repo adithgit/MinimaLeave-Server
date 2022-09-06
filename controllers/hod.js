@@ -10,7 +10,6 @@ exports.getStudents = async(req, res)=>{
     }
 }
 
-
 exports.getHistory = async(req, res)=>{
     if(!req.params.studentId) return res.status(400).send({message: 'student id not defined in parameters'});
     try {
