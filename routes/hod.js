@@ -12,7 +12,7 @@ router.use(authenticate.checkHod);
 // Private Routes
 
 // get students of a semester
-router.get('/semster/:semester/:department', hodControl.getStudents);
+router.get('/students/:semester/:department', hodControl.getStudents);
 // get student leave history
 router.get('/history/:studentId', hodControl.getHistory);
 // grant student leave

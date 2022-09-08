@@ -22,7 +22,7 @@ exports.login = async (req, res)=>{
     try{
         const result = await adminServices.loginAdmin(req.body);
         req.session.user = {
-            id: result.username,
+            username: result.username,
             type:'admin',
         }
         res.status(200).send({message: 'admin logged in', data: result});

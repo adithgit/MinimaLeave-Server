@@ -16,6 +16,6 @@ router.get('/children/:parentId', parentControl.getStudents);
 // get student leave history
 router.get('/history/:studentId', parentControl.getHistory);
 // grant student leave
-router.get('/approve/:studentId', parentControl.approve);
+router.get('/approve/:leaveId', parentControl.approve);
 
 module.exports = router;

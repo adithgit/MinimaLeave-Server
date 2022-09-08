@@ -48,10 +48,12 @@ const handleLeave = (leaveId)=>{
             if(result.parentstatus == 'denied'){
                 Leave.updateOne({_id: leaveId}, {$set: {hodstatus: 'denied'}}, (err, result)=>{
                     if(err) return reject(err);
+                    resolve(result)
                 });
             }else{
                 Leave.updateOne({_id: leaveId}, {$set: {hodstatus: 'approved'}}, (err, result)=>{
                     if(err) return reject(err);
+                    resolve(result)
                 });
             }
         })

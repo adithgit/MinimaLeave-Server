@@ -5,7 +5,7 @@ exports.login = async(req, res)=>{
     try {
         const result = await hodServices.login(req.body);
         req.session.user = {
-            id: result.username,
+            username: result.username,
             type: 'hod'
         }
         res.status(200).send({message: "logged in.", data: result}); 

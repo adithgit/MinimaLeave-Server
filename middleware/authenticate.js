@@ -23,6 +23,7 @@ exports.checkStudent = (req, res, next)=>{
         next();
     }
     catch(e){
+        console.log("access denied");
         res.status(401).send({message: 'access denied'});
     }
 }

@@ -12,6 +12,6 @@ router.use(authenticate.checkStudent);
 // get student leave history
 router.get('/history/:studentId', studentControl.getHistory);
 // apply for leave
-router.get('/apply/:studentId', studentControl.apply);
+router.post('/apply', studentControl.apply);
 
 module.exports = router;

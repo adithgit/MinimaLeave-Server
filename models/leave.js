@@ -2,9 +2,18 @@ var mongoose = require("mongoose");
 var leaveSchema = new mongoose.Schema(
   {
     subject: { type: String, required: "subject cant be blank" },
-    from: Date,
-    to: Date,
-    days: Number,
+    from: {
+      type: Date,
+      required: true
+    },
+    to: {
+      type: Date,
+      required: true
+    },
+    days: {
+      type: Number,
+      required: true
+    },
     hodstatus: {
       type: String,
       enum: ["pending", "approved", "denied"],
@@ -28,12 +37,9 @@ var leaveSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    stud: {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Student"
-      },
-      username: String
+    student: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student"
     }
   },
   { timestamps: {} }
