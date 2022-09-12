@@ -8,7 +8,7 @@ router.post('/register', adminControl.register);
 router.post('/login', adminControl.login);
 
 // Authentication middleware here
-router.use(authenticate.checkAdmin)
+// router.use(authenticate.checkAdmin)
 
 // Private Routes
 

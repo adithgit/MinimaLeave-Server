@@ -13,6 +13,7 @@ exports.register = async (req, res)=>{
         res.status(200).send({message: 'admin created', data: result});
     }
     catch(e){
+        console.log(e);
         res.status(500).send({message: 'cannot create admin', data: e.toString()});
     }
 }
@@ -44,7 +45,6 @@ exports.addHod = async (req, res)=>{
 
 exports.addParent = async (req, res)=>{
     try{
-        if(!req.body.studentID) throw new Error('Student Id not defined.')
         const result = await adminServices.addParent(req.body);
         res.status(200).send({message: 'parent added', data: result});
     }
@@ -65,6 +65,7 @@ exports.addStudent = async (req, res)=>{
 
 exports.removeHod = async (req, res)=>{
     try{
+        console.log(req.body)
         const result = await adminServices.removeHod(req.body);
         res.status(200).send({message: 'hod removed', data: result});
     }

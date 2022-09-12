@@ -7,7 +7,7 @@ const authenticate = require('../middleware/authenticate');
 router.post('/login', studentControl.login);
 
 // Authentication middleware here 
-router.use(authenticate.checkStudent);
+// router.use(authenticate.checkStudent);
 
 // get student leave history
 router.get('/history/:studentId', studentControl.getHistory);

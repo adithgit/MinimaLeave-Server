@@ -38,6 +38,19 @@ exports.approve = async(req, res)=>{
     if(!req.params.leaveId) return res.status(400).send({message: 'leave id not defined in parameters'});
     try {
         const result = await hodServices.approve(req.params.leaveId);
+        console.log(result)
+        res.status(200).send({data: result}); 
+    } catch (e) {
+        res.status(401).send({message: e});
+    }
+}
+
+exports.reject = async(req, res)=>{
+    console.log(req.params)
+    if(!req.params.leaveId) return res.status(400).send({message: 'leave id not defined in parameters'});
+    try {
+        const result = await hodServices.rejectLeave(req.params.leaveId);
+        console.log(result)
         res.status(200).send({data: result}); 
     } catch (e) {
         res.status(401).send({message: e});

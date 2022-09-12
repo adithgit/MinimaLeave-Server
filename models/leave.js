@@ -41,8 +41,7 @@ var leaveSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Student"
     }
-  },
-  { timestamps: {} }
+  }
 );
 
 module.exports = mongoose.model("Leave", leaveSchema);

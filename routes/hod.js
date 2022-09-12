@@ -7,7 +7,7 @@ const authenticate = require('../middleware/authenticate');
 router.post('/login', hodControl.login);
 
 // Authentication middleware here
-router.use(authenticate.checkHod);
+// router.use(authenticate.checkHod);
 
 // Private Routes
 
@@ -17,5 +17,7 @@ router.get('/students/:semester/:department', hodControl.getStudents);
 router.get('/history/:studentId', hodControl.getHistory);
 // grant student leave
 router.get('/approve/:leaveId', hodControl.approve);
+
+router.get('/reject/:leaveId', hodControl.reject);
 
 module.exports = router;

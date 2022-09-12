@@ -1,4 +1,3 @@
-
 exports.checkAdmin = (req, res, next)=>{
     try{
         if(req.session.user.type != 'admin') throw new Error();

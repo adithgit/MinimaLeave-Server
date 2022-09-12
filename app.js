@@ -8,8 +8,10 @@ const db = require('./database/db');
 const router = require('./routes/router');
 const bodyParser = require('body-parser');
 const MongoStore = require('connect-mongo');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 db.connect();
 app.use(bodyParser.urlencoded({ extended: true}));
 

@@ -1,6 +1,7 @@
 const Student = require('../models/student');
 const Leave = require('../models/leave');
 const Hod = require('../models/hod');
+const leave = require('../models/leave');
 
 exports.login = (credentials)=>{
     return new Promise((resolve, reject)=>{
@@ -16,7 +17,8 @@ exports.login = (credentials)=>{
 
 exports.getStudents = (semester, department) => {
     return new Promise((resolve, reject) => {
-        Student.find({ semester: semester, department: department }, (err, result) => {
+        semester = parseInt(semester)
+        Student.find({ department: department, semester:semester }, (err, result) => {
             if (err) return reject(err);
             resolve(result);
         });
@@ -25,7 +27,7 @@ exports.getStudents = (semester, department) => {
 
 exports.getHistory = (studentId) => {
     return new Promise((resolve, reject) => {
-        Leave.find({ stud: studentId }, (err, result) => {
+        Leave.find({ student: studentId }, (err, result) => {
             if (err) return reject(err);
             resolve(result);
         })
@@ -56,6 +58,17 @@ const handleLeave = (leaveId)=>{
                     resolve(result)
                 });
             }
+        })
+    })
+}
+
+exports.rejectLeave = (leaveId)=>{
+    return new Promise((resolve, reject)=>{
+        Leave.findOne({_id: leaveId}, (err, result)=>{
+                Leave.updateOne({_id: leaveId}, {$set: {hodstatus: 'denied', finalstatus:'denied'}}, (err, result)=>{
+                    if(err) return reject(err);
+                    resolve(result)
+                });
         })
     })
 }

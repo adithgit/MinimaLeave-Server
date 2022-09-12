@@ -14,10 +14,6 @@ var parentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  students:{
-    type: Array,
-    required: true
-  },
   image: {
     type: String,
     required: true

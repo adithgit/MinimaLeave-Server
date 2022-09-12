@@ -14,10 +14,9 @@ exports.login = async (req, res) => {
 }
 
 exports.apply = (req, res) => {
-    if (!req.session.user) return res.status(400).send({ message: 'student not logged in' });
+    // if (!req.session.user) return res.status(400).send({ message: 'student not logged in' });
     const leaveDetails = req.body;
-    leaveDetails.username = req.session.user.username;
-
+    leaveDetails.username = 'b';
     studentServices.applyLeave(leaveDetails).then((result) => {
         res.status(200).send({ message: 'leave apply success', data: result });
     }).catch((err) => {
@@ -29,6 +28,7 @@ exports.apply = (req, res) => {
 exports.getHistory = async (req, res) => {
     if (!req.params.studentId) return res.status(400).send({ message: 'student id not defined in parameters' });
     try {
+        console.log(req.params.studentId)
         const result = await studentServices.getHistory(req.params.studentId);
         res.status(200).send({ message: 'leave get success', data: result });
     } catch (e) {

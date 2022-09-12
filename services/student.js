@@ -17,6 +17,7 @@ exports.getHistory = (studId)=>{
     return new Promise((resolve, reject)=>{
         leave.find({student: studId}, (err, result)=>{
             if(err) return reject(err);
+            console.log(result)
             resolve(result);
         })
     })
@@ -27,9 +28,13 @@ exports.applyLeave = (leaveDetails)=>{
         console.log(leaveDetails)
         Student.findOne({username: leaveDetails.username}, (err, student)=>{
             if(err || !student) return reject(err)
+            console.log(student);
             leaveDetails.student = student.id;
             new leave(leaveDetails).save((err, result)=>{
                 if(err || !result ) return reject(err);
+                Student.updateOne({username: leaveDetails.username}, {$push: {leaves: result._id}}, (err, result)=>{
+                    if(err) return reject(err);
+                });
                 resolve(result);
             })
         })

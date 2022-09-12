@@ -64,30 +64,32 @@ exports.addStudent = (studentDetails) => {
 }
 
 
-exports.removeStudent = (username) => {
+exports.removeStudent = (data) => {
     return new Promise((resolve, reject) => {
-        Student.deleteOne({ username: username }, (err, result) => {
-            if (err) return reject(err);
+        Student.deleteOne(data, (err, result) => {
+            if (err || !result.deletedCount) return reject(err || "username don't match with any records");
             resolve(result);
         });
     })
 }
 
 
-exports.removeHod = (username) => {
+exports.removeHod = (data) => {
     return new Promise((resolve, reject) => {
-        Hod.deleteOne({ username: username }, (err, result) => {
-            if (err) return reject(err);
+        Hod.deleteOne(data, (err, result) => {
+            console.log(err)
+            if (err || !result.deletedCount) return reject(err || "username don't match with any records");
+            console.log(result)
             resolve(result);
         });
     })
 }
 
 
-exports.removeParent = (username) => {
+exports.removeParent = (data) => {
     return new Promise((resolve, reject) => {
-        Parent.deleteOne({ username: username }, (err, result) => {
-            if (err) return reject(err);
+        Parent.deleteOne(data, (err, result) => {
+            if (err || !result.deletedCount) return reject(err || "username don't match with any records");
             resolve(result);
         });
     })
