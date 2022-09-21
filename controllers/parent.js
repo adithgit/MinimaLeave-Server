@@ -45,3 +45,12 @@ exports.approve = async (req, res)=>{
         res.status(401).send({message: e.toString()});
     }
 }
+
+exports.addChild = async (req, res)=>{
+    try {
+        const result = await parentServices.addChild(req.body.username, req.body.parent);
+        res.status(200).send({data: result}); 
+    } catch (e) {
+        res.status(401).send({message: e.toString()});
+    }
+}

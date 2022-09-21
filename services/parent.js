@@ -66,3 +66,16 @@ const handleLeave = (leaveId)=>{
         })
     })
 }
+
+exports.addChild = (username, parent)=>{
+    return new Promise((resolve, reject)=>{
+        Student.findOne({username: username}, (err, student)=>{
+            if(err || !student)  return reject(err || 'student does not exist.');
+            Parent.updateOne({parent: parent}, {$push: {student: student._id}}, (err, result)=>{
+                if(err) return reject(err);
+                console.log(result)
+                resolve(result);
+            })
+        })
+    })
+}
