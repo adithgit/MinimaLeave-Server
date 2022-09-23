@@ -16,6 +16,7 @@ router.get('/children/:parentId', parentControl.getStudents);
 router.get('/history/:studentId', parentControl.getHistory);
 // grant student leave
 router.get('/approve/:leaveId', parentControl.approve);
+router.get('/rejecct/:leaveId', parentControl.reject);
 
 
 // router.get('/reject/:leaveId',)

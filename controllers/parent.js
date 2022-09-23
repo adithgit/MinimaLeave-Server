@@ -54,3 +54,12 @@ exports.addChild = async (req, res)=>{
         res.status(401).send({message: e.toString()});
     }
 }
+
+exports.reject = async (req, res)=>{
+    try {
+        const result = await parentServices.reject(req.params.leaveId);
+        res.status(200).send({data: result}); 
+    } catch (e) {
+        res.status(401).send({message: e.toString()});
+    }
+}
