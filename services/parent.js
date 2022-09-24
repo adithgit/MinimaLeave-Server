@@ -65,12 +65,13 @@ const handleLeave = (leaveId)=>{
     return new Promise((resolve, reject)=>{
         Leave.findOne({_id: leaveId}, (err, result)=>{
             if(err) return reject(err)
-            if(result.hodstatus == 'denied'){
-                Leave.updateOne({_id: leaveId}, {$set: {parentstatus: 'denied', finalstatus: 'denied'}}, (err, result)=>{
-                    if(err) return reject(err);
-                    return resolve(result)
-                });
-            }else if(result.hodstatus == 'approved'){
+            // if(result.hodstatus == 'denied'){
+            //     Leave.updateOne({_id: leaveId}, {$set: {parentstatus: 'denied', finalstatus: 'denied'}}, (err, result)=>{
+            //         if(err) return reject(err);
+            //         return resolve(result)
+            //     });
+            // }else 
+            if(result.hodstatus == 'approved'){
                 Leave.updateOne({_id: leaveId}, {$set: {parentstatus: 'approved', finalstatus: 'approved'}}, (err, result)=>{
                     if(err) return reject(err);
                     return resolve(result)
