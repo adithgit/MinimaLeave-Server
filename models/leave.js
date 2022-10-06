@@ -29,14 +29,6 @@ var leaveSchema = new mongoose.Schema(
       enum: ["pending", "approved", "denied"],
       default: "pending"
     },
-    approved: {
-      type: Boolean,
-      default: false
-    },
-    denied: {
-      type: Boolean,
-      default: false
-    },
     student: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Student"

@@ -10,7 +10,7 @@ router.post('/login', studentControl.login);
 // router.use(authenticate.checkStudent);
 
 // get student leave history
-router.get('/history/:studentId', studentControl.getHistory);
+router.get('/history', studentControl.getHistory);
 // apply for leave
 router.post('/apply', studentControl.apply);
 

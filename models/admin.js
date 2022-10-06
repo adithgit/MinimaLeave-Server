@@ -17,7 +17,7 @@ var adminSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true
-  },
+  }
 });
 
 adminSchema.pre("save", async function (next){

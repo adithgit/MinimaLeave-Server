@@ -7,6 +7,10 @@ exports.login = (studentDetails)=>{
             if(err || !student) return reject(err || 'username not valid');
             Parent.comparePassword(studentDetails.password, student.password, (err, valid)=>{
                 if(err || !valid) return reject(err || 'password incorrect');
+                student = student.toJSON();
+                student.type = 'student';
+                delete student.password;
+                console.log(student);
                 resolve(student);
             })
         })

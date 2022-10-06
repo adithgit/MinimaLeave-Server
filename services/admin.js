@@ -21,6 +21,9 @@ exports.loginAdmin = (loginDetails) => {
             if (err || !admin) return reject('username invalid');
             Admin.comparePassword(loginDetails.password, admin.password, (err, valid) => {
                 if (err || !valid) return reject('password incorrect');
+                admin = admin.toJSON();
+                delete admin.password;
+                admin.type = 'admin';
                 resolve(admin);
             })
         })

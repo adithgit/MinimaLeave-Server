@@ -5,6 +5,7 @@ exports.login = async (req, res)=>{
     try {
         const result = await parentServices.login(req.body);
         req.session.user = {
+            id: result._id,
             username: result.username,
             type: 'parent'
         }
@@ -15,9 +16,9 @@ exports.login = async (req, res)=>{
 }
 
 exports.getStudents = async (req, res)=>{
-    if(!req.params.parentId) return res.status(400).send({message: 'parentId not defined in parameters'});
+    if(!req.session.user.id) return res.status(400).send({message: 'Cannot find parent id.'});
     try {
-        const result = await parentServices.getStudents(req.params.parentId);
+        const result = await parentServices.getStudents(req.session.user.id);
         res.status(200).send({data: result}); 
     } catch (e) {
         res.status(401).send({message: e.toString()});
