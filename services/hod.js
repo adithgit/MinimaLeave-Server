@@ -60,7 +60,7 @@ const handleLeave = (leaveId) => {
                     if (err) return reject(err);
                     resolve(result)
                 });
-            } else if (result.parentStatus == 'approved') {
+            } else if (result.parentstatus == 'approved') {
                 Leave.updateOne({ _id: leaveId }, { $set: { hodstatus: 'approved', finalstatus: 'approved' } }, (err, result) => {
                     if (err) return reject(err);
                     resolve(result)
