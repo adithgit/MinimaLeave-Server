@@ -9,6 +9,8 @@ const router = require('./routes/router');
 const bodyParser = require('body-parser');
 const MongoStore = require('connect-mongo');
 const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 app.use(cors({ credentials: true, origin:'http://localhost:3000'}));
@@ -29,6 +31,6 @@ app.use(session({
 app.use('/api', router);
 
 
-app.listen(8080 || process.env.PORT, () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log('listening to port 8080');
 })
