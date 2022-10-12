@@ -13,7 +13,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-app.use(cors({ credentials: true, origin:'http://localhost:3000'}));
+app.use(cors({ credentials: true, origin:'https://minimaleave.vercel.app'}));
 db.connect();
 app.use(bodyParser.urlencoded({ extended: true}));
 
@@ -24,9 +24,13 @@ app.use(session({
     saveUninitialized: true,
     cookie: { maxAge: 1000*60*60*24 },
     store: MongoStore.create({
-        mongoUrl: 'mongodb://127.0.0.1:27017/leave',
+        mongoUrl: process.env.MONGO_URI,
     })
 }))
+
+app.get('/', (req, res)=>{
+    res.send("wassup bro");
+})
 
 app.use('/api', router);
 
